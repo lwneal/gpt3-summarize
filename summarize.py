@@ -33,6 +33,7 @@ def parse_categorize_response(text):
 def main():
     # First, categorize each line from stdin
     lines = open('lines.txt').readlines()
+    categorized = {}
     for line in lines:
         prompt = categorize_prompt(line)
         response = openai.Completion.create(
@@ -47,6 +48,8 @@ def main():
         if category not in CATEGORIES:
             CATEGORIES.append(category)
         print(category, line)
+        categorized.setdefault(category, []).append(line)
+    print(categorized)
 
 
 if __name__ == "__main__":
