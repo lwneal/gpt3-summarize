@@ -7,18 +7,19 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 CATEGORIES = []
+PROMPT = '''You are the text categorization AI.
+{
+    "categories": %s
+}
+Categorize the following statement as one of the above categories. Or output a new category if it does not fit any of the above.
+{
+    "statement": "%s"
+    "category":'''
+
 
 def categorize_prompt(statement):
     cats = json.dumps(CATEGORIES)
     stat = statement.strip()
-    PROMPT = '''You are the text categorization AI.
-    {
-        "categories": %s
-    }
-    Categorize the following statement as one of the above categories. Or add a new category if it does not fit any of the above.
-    {
-        "statement": "%s"
-        "category":'''
     return PROMPT % (cats, stat)
 
 
